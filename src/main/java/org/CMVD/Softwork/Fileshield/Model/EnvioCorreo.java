@@ -3,7 +3,6 @@ package org.CMVD.Softwork.Fileshield.Model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
@@ -17,7 +16,8 @@ public class EnvioCorreo {
 
     @ManyToOne
     private Usuario usuarioEmisor;
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "correo_id")
     private Correo correo;
 
 }

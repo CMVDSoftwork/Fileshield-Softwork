@@ -3,7 +3,6 @@ package org.CMVD.Softwork.Fileshield.Model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
@@ -13,7 +12,7 @@ public class Archivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idArchivo;
-    private String nombreArchivo, estado, tipoArchivo;
+    private String nombreArchivo, estado, tipoArchivo, rutaArchivo;
     private int tamaño;
     private Date fechaSubida;
 

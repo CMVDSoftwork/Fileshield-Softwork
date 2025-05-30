@@ -1,13 +1,8 @@
 package org.CMVD.Softwork.Fileshield.DTO;
 
-import jakarta.persistence.ManyToOne;
-import jdk.jfr.Name;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.CMVD.Softwork.Fileshield.Model.Archivo;
-import org.CMVD.Softwork.Fileshield.Model.CarpetaMonitorizada;
-import org.CMVD.Softwork.Fileshield.Model.Usuario;
-
 import java.util.Date;
 
 @Data
@@ -15,6 +10,7 @@ import java.util.Date;
 public class ArchivoDTO {
     private Integer idArchivo;
     private String nombreArchivo, estado,tipoArchivo;
+    private String rutaArchivo;
     private int tamaño;
     private Date fechaSubida;
 
@@ -26,6 +22,7 @@ public class ArchivoDTO {
         this.nombreArchivo = p_archivo.getNombreArchivo();
         this.estado = p_archivo.getEstado();
         this.tipoArchivo = p_archivo.getTipoArchivo();
+        this.rutaArchivo = p_archivo.getRutaArchivo();
         this.tamaño = p_archivo.getTamaño();
         this.fechaSubida = p_archivo.getFechaSubida();
         usuarioDTO = new UsuarioDTO(p_archivo.getUsuario());

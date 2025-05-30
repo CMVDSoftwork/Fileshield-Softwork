@@ -1,4 +1,4 @@
-package org.CMVD.Softwork.Fileshield.SessionRequest;
+package org.CMVD.Softwork.Fileshield.DTO.SessionRequest;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

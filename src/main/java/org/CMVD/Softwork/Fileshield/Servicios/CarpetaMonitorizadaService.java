@@ -1,4 +1,12 @@
 package org.CMVD.Softwork.Fileshield.Servicios;
 
-public interface CarpetaMonitorizadaServicio {
+import org.CMVD.Softwork.Fileshield.DTO.CarpetaMonitorizadaDTO;
+import javax.crypto.SecretKey;
+import java.util.List;
+
+public interface CarpetaMonitorizadaService {
+    CarpetaMonitorizadaDTO registrarCarpeta(CarpetaMonitorizadaDTO carpetaDTO);
+    List<CarpetaMonitorizadaDTO> obtenerCarpetasPorUsuario(Integer idUsuario);
+    void eliminarCarpeta(Integer idCarpetaMonitorizada);
+    void iniciarMonitoreo(String rutaCarpeta, SecretKey clave);
 }

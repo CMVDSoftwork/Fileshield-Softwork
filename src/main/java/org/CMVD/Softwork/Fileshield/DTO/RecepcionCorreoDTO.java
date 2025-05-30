@@ -3,8 +3,6 @@ package org.CMVD.Softwork.Fileshield.DTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.CMVD.Softwork.Fileshield.Model.RecepcionCorreo;
-
-
 import java.util.Date;
 
 @Data

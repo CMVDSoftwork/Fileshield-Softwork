@@ -14,6 +14,6 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUsuario;
-    private String nombre,apellidoP,apellidoM,claveCifDesPersonal,correo,contrasena;
+    private String nombre,apellidoP,apellidoM,claveCifDesPersonal,correo,contrasena,salt;
 
 }

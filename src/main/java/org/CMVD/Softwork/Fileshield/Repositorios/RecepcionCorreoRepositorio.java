@@ -5,8 +5,8 @@ import org.CMVD.Softwork.Fileshield.Model.RecepcionCorreo;
 import org.CMVD.Softwork.Fileshield.Model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,6 +14,7 @@ public interface RecepcionCorreoRepositorio extends JpaRepository<RecepcionCorre
     Optional<RecepcionCorreo> findByFechaRecepcion(Date fechaRecepcion);
     Optional<RecepcionCorreo> findByEnvioRecepcion(EnvioCorreo envioRecepcion);
     Optional<RecepcionCorreo> findByUsuarioRecepcion(Usuario usuarioRecepcion);
+    List<RecepcionCorreo> findByUsuarioRecepcionOrderByFechaRecepcionDesc(Usuario usuarioRecepcion);
 
     @Override
     Optional<RecepcionCorreo> findById(Integer idRecepcionCorreo);

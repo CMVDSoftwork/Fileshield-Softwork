@@ -3,7 +3,6 @@ package org.CMVD.Softwork.Fileshield.Repositorios;
 import org.CMVD.Softwork.Fileshield.Model.Archivo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.Date;
 import java.util.Optional;
 

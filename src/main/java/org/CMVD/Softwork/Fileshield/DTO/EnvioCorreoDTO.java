@@ -1,11 +1,8 @@
 package org.CMVD.Softwork.Fileshield.DTO;
 
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.CMVD.Softwork.Fileshield.Model.Correo;
 import org.CMVD.Softwork.Fileshield.Model.EnvioCorreo;
-import org.CMVD.Softwork.Fileshield.Model.Usuario;
 
 import java.util.Date;
 

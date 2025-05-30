@@ -1,12 +1,14 @@
 package org.CMVD.Softwork.Fileshield.Controller;
 
+import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.CambiarContraseñaRequest;
 import org.CMVD.Softwork.Fileshield.DTO.UsuarioDTO;
 import org.CMVD.Softwork.Fileshield.Servicios.UsuarioService;
-import org.CMVD.Softwork.Fileshield.SessionRequest.LoginRequest;
-import org.CMVD.Softwork.Fileshield.SessionRequest.LoginResponse;
-import org.CMVD.Softwork.Fileshield.SessionRequest.RegistroRequest;
+import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.LoginRequest;
+import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.LoginResponse;
+import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.RegistroRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,9 +27,11 @@ public class AuthController {
         return ResponseEntity.ok(ServeUsuario.login(request));
     }
 
-    @GetMapping("/ping")
-    public String ping() {
-        return "pong";
+    @PostMapping("/cambiar-contrasena")
+    public ResponseEntity<String> cambiarContrasena(@RequestBody CambiarContraseñaRequest request, Authentication authentication) {
+        String correo = authentication.getName();
+        ServeUsuario.cambiarContrasena(correo, request.getContrasenaActual(), request.getNuevaContrasena());
+        return ResponseEntity.ok("Contraseña actualizada correctamente.");
     }
 }
 

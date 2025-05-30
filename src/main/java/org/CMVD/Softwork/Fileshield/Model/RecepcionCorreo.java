@@ -3,7 +3,6 @@ package org.CMVD.Softwork.Fileshield.Model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data

@@ -1,11 +1,9 @@
 package org.CMVD.Softwork.Fileshield.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -14,6 +12,12 @@ public class EnlaceSeguro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEnlaceSeguro;
-    private String url, estado;
+    private String tokenUnico, claveCifradoBase64;
+    private LocalDateTime fechaExpiracion;
+    private boolean usado = false;
+    @OneToOne
+    private Correo correo;
 
+    @ManyToOne
+    private Usuario receptor;
 }

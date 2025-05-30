@@ -1,4 +1,4 @@
-package org.CMVD.Softwork.Fileshield.SessionRequest;
+package org.CMVD.Softwork.Fileshield.DTO.SessionRequest;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
