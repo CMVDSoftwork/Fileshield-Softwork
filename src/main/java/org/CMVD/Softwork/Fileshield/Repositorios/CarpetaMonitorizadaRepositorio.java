@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface CarpetaMonitorizadaRepositorio extends JpaRepository<CarpetaMonitorizada,Integer> {
     Optional<CarpetaMonitorizada> findCarpetaMonitorizadaByRuta(String ruta);
     Optional<CarpetaMonitorizada> findCarpetaMonitorizadaByUsuario(Usuario usuario);
+    Optional<CarpetaMonitorizada> findCarpetaMonitorizadaByRutaAndUsuario(String ruta, Usuario usuario);
     List<CarpetaMonitorizada> findByUsuarioIdUsuario(Integer idUsuario);
-
 
     @Override
     Optional<CarpetaMonitorizada> findById(Integer idCarpetaMonitorizada);

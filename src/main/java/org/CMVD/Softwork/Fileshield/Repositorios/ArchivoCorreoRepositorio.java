@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ArchivoCorreoRepositorio extends JpaRepository<ArchivoCorreo, Integer> {
     List<ArchivoCorreo> findByCorreo(Correo correo);
+    List<ArchivoCorreo> findByCorreo_IdCorreo(Integer idCorreo);
 }

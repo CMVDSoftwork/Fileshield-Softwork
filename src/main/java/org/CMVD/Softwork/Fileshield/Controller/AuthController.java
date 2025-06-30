@@ -1,11 +1,8 @@
 package org.CMVD.Softwork.Fileshield.Controller;
 
-import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.CambiarContraseñaRequest;
-import org.CMVD.Softwork.Fileshield.DTO.UsuarioDTO;
+import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.*;
+import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.UsuarioDTO;
 import org.CMVD.Softwork.Fileshield.Servicios.UsuarioService;
-import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.LoginRequest;
-import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.LoginResponse;
-import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.RegistroRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -32,6 +29,12 @@ public class AuthController {
         String correo = authentication.getName();
         ServeUsuario.cambiarContrasena(correo, request.getContrasenaActual(), request.getNuevaContrasena());
         return ResponseEntity.ok("Contraseña actualizada correctamente.");
+    }
+
+    @PostMapping("/recuperar-contrasena")
+    public ResponseEntity<?> recuperar(@RequestBody RecuperarContraseñaRequest req) {
+        ServeUsuario.recuperarContrasenaSinToken(req.getCorreo(), req.getContrasenaActual(), req.getNuevaContrasena());
+        return ResponseEntity.ok("Contraseña actualizada exitosamente.");
     }
 }
 

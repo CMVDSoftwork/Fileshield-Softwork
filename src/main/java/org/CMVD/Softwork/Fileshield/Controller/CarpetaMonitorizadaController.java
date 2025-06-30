@@ -1,7 +1,8 @@
 package org.CMVD.Softwork.Fileshield.Controller;
 
-import org.CMVD.Softwork.Fileshield.DTO.CarpetaMonitorizadaDTO;
-import org.CMVD.Softwork.Fileshield.DTO.MonitoreoRequest;
+import org.CMVD.Softwork.Fileshield.DTO.Carpeta.CarpetaMonitorizadaDTO;
+import org.CMVD.Softwork.Fileshield.DTO.Carpeta.DetenerMonitoreoRequest;
+import org.CMVD.Softwork.Fileshield.DTO.Carpeta.MonitoreoRequest;
 import org.CMVD.Softwork.Fileshield.Servicios.CarpetaMonitorizadaService;
 import org.CMVD.Softwork.Fileshield.Servicios.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,9 @@ public class CarpetaMonitorizadaController {
         return ResponseEntity.ok(carpetas);
     }
 
-    @DeleteMapping("/{idCarpetaMonirorizada}")
-    public ResponseEntity<Void> eliminarCarpeta(@PathVariable Integer idCarpetaMonirorizada) {
-        carpetaService.eliminarCarpeta(idCarpetaMonirorizada);
+    @DeleteMapping("/{idCarpetaMonitorizada}")
+    public ResponseEntity<Void> eliminarCarpeta(@PathVariable Integer idCarpetaMonitorizada) {
+        carpetaService.eliminarCarpeta(idCarpetaMonitorizada);
         return ResponseEntity.noContent().build();
     }
 
@@ -49,5 +50,11 @@ public class CarpetaMonitorizadaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error al iniciar monitoreo: " + e.getMessage());
         }
+    }
+
+    @PostMapping("/detener")
+    public ResponseEntity<String> detenerMonitoreo(@RequestBody DetenerMonitoreoRequest request) {
+        carpetaService.detenerMonitoreo(request.getRuta());
+        return ResponseEntity.ok("Monitoreo detenido para la ruta: " + request.getRuta());
     }
 }

@@ -1,6 +1,6 @@
 package org.CMVD.Softwork.Fileshield.Servicios.Impl;
 
-import org.CMVD.Softwork.Fileshield.DTO.UsuarioDTO;
+import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.UsuarioDTO;
 import org.CMVD.Softwork.Fileshield.Model.Usuario;
 import org.CMVD.Softwork.Fileshield.Repositorios.UsuarioRepositorio;
 import org.CMVD.Softwork.Fileshield.Security.JwtTokenProvider;
@@ -70,8 +70,32 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new RuntimeException("Contraseña incorrecta.");
         }
 
+        String clavePersonalCifradaAlmacenada = usuario.getClaveCifDesPersonal();
+
+        if (clavePersonalCifradaAlmacenada == null || !clavePersonalCifradaAlmacenada.contains(":")) {
+            throw new RuntimeException("Clave personal cifrada no disponible o mal formada para el usuario.");
+        }
+
+        String[] partes = clavePersonalCifradaAlmacenada.split(":");
+        String saltParaDescifrado = partes[0];
+        String claveAESCifradaSoloBase64 = partes[1];
+
+        byte[] claveAESCifradaBytes = Base64.getDecoder().decode(claveAESCifradaSoloBase64);
+
+        BytesEncryptor desencriptadorClaveAES = Encryptors.stronger(request.getContrasena(), saltParaDescifrado);
+        byte[] claveAESDescifradaBytes = desencriptadorClaveAES.decrypt(claveAESCifradaBytes); // Aquí obtienes los bytes de la CLAVE AES pura
+        String claveAESDescifradaParaClienteBase64 = Base64.getEncoder().encodeToString(claveAESDescifradaBytes);
+
         String token = jwtTokenProvider.generarToken(usuario);
-        return new LoginResponse(token, usuario.getNombre(), usuario.getCorreo());
+
+        LoginResponse response = new LoginResponse();
+        response.setToken(token);
+        response.setNombre(usuario.getNombre());
+        response.setCorreo(usuario.getCorreo());
+        response.setIdUsuario(usuario.getIdUsuario());
+        response.setClaveCifDesPersonal(claveAESDescifradaParaClienteBase64);
+
+        return response;
     }
 
     @Override
@@ -135,6 +159,38 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setClaveCifDesPersonal(nuevaClaveFinal);
         usuario.setContrasena(passwordEncoder.encode(nuevaContrasena));
 
+        RepoUsuario.save(usuario);
+    }
+
+    @Override
+    public void recuperarContrasenaSinToken(String correo, String contrasenaActual, String nuevaContrasena) {
+        Usuario usuario = RepoUsuario.findByCorreo(correo)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado."));
+
+        if (!passwordEncoder.matches(contrasenaActual, usuario.getContrasena())) {
+            throw new RuntimeException("Contraseña actual incorrecta.");
+        }
+
+        String cifrado = usuario.getClaveCifDesPersonal();
+        if (cifrado == null || !cifrado.contains(":")) {
+            throw new RuntimeException("Clave cifrada inválida.");
+        }
+
+        String[] partes = cifrado.split(":");
+        String saltAnterior = partes[0];
+        String claveAnteriorCifrada = partes[1];
+
+        byte[] claveCifradaBytes = Base64.getDecoder().decode(claveAnteriorCifrada);
+        BytesEncryptor decryptor = Encryptors.stronger(contrasenaActual, saltAnterior);
+        byte[] claveAESBytes = decryptor.decrypt(claveCifradaBytes);
+
+        String nuevoSalt = KeyGenerators.string().generateKey();
+        BytesEncryptor encryptor = Encryptors.stronger(nuevaContrasena, nuevoSalt);
+        byte[] nuevaClaveCifrada = encryptor.encrypt(claveAESBytes);
+        String nuevaClaveFinal = nuevoSalt + ":" + Base64.getEncoder().encodeToString(nuevaClaveCifrada);
+
+        usuario.setContrasena(passwordEncoder.encode(nuevaContrasena));
+        usuario.setClaveCifDesPersonal(nuevaClaveFinal);
         RepoUsuario.save(usuario);
     }
 }

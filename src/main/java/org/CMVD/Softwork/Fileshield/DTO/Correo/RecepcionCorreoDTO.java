@@ -1,7 +1,8 @@
-package org.CMVD.Softwork.Fileshield.DTO;
+package org.CMVD.Softwork.Fileshield.DTO.Correo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.UsuarioDTO;
 import org.CMVD.Softwork.Fileshield.Model.RecepcionCorreo;
 import java.util.Date;
 

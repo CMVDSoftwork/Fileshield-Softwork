@@ -1,4 +1,4 @@
-package org.CMVD.Softwork.Fileshield.DTO;
+package org.CMVD.Softwork.Fileshield.DTO.Correo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

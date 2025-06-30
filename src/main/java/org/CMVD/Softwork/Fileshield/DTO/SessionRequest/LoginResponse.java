@@ -10,10 +10,14 @@ public class LoginResponse {
     private String tipoToken = "Bearer";
     private String correo;
     private String nombre;
+    private Integer idUsuario;
+    private String claveCifDesPersonal;
 
-    public LoginResponse(String token, String correo, String nombre) {
+    public LoginResponse(String token, String correo, String nombre, Integer idUsuario) {
         this.token = token;
         this.correo = correo;
         this.nombre = nombre;
+        this.idUsuario = idUsuario;
+        this.claveCifDesPersonal = claveCifDesPersonal;
     }
 }

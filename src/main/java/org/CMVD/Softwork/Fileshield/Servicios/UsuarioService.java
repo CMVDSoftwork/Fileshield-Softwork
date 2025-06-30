@@ -1,6 +1,6 @@
 package org.CMVD.Softwork.Fileshield.Servicios;
 
-import org.CMVD.Softwork.Fileshield.DTO.UsuarioDTO;
+import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.UsuarioDTO;
 import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.LoginRequest;
 import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.LoginResponse;
 import org.CMVD.Softwork.Fileshield.DTO.SessionRequest.RegistroRequest;
@@ -14,5 +14,6 @@ public interface UsuarioService {
     LoginResponse login(LoginRequest request);
     SecretKey recuperarClaveAES(Integer idUsuario, String contrasena);
     void cambiarContrasena(String correo, String contrasenaActual, String nuevaContrasena);
+    void recuperarContrasenaSinToken(String correo, String contrasenaActual, String nuevaContrasena);
 
 }

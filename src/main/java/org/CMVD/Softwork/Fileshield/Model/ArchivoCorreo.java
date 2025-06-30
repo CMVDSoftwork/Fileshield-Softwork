@@ -13,7 +13,9 @@ public class ArchivoCorreo {
     private Integer idArchivoCorreo;
 
     private String nombreOriginal;
-    private String rutaCifrado;
+    @Lob
+    @Column(name = "contenido_cifrado", columnDefinition = "MEDIUMBLOB")
+    private byte[] contenidoCifrado;
 
     @ManyToOne
     private Correo correo;
