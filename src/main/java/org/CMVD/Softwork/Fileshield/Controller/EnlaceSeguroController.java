@@ -111,20 +111,7 @@ public class EnlaceSeguroController {
             font-size: 0.8rem;
             margin-top: 30px;
         }
-        a.button {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 10px 25px;
-            background-color: #1E90FF;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-        a.button:hover {
-            background-color: #4CB1FF;
-        }
+    
     </style>
 </head>
 <body>
@@ -140,8 +127,6 @@ public class EnlaceSeguroController {
             <li>Ve a la sección <strong>“Ver clave”</strong>.</li>
             <li>Pega este mismo enlace cuando se te solicite.</li>
         </ol>
-
-        <a href="/" class="button">Volver al inicio</a>
 
         <p class="footer">Este enlace expira en 24 horas y solo puede usarse una vez.</p>
     </div>
