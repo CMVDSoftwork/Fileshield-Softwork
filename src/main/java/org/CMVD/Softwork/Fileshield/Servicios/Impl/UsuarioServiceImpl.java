@@ -36,7 +36,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
     @Override
-    public UsuarioDTO registrar(RegistroRequest request) {
+    public LoginResponse registrar(RegistroRequest request) {
         if (RepoUsuario.findByCorreo(request.getCorreo()).isPresent()) {
             throw new RuntimeException("El correo ya está registrado.");
         }
@@ -60,7 +60,19 @@ public class UsuarioServiceImpl implements UsuarioService {
         nuevo.setClaveCifDesPersonal(claveFinal);
 
         Usuario guardado = RepoUsuario.save(nuevo);
-        return new UsuarioDTO(guardado);
+        String token = jwtTokenProvider.generarToken(guardado);
+
+        byte[] claveAESDescifradaBytes = encryptor.decrypt(claveCifradaBytes);
+        String claveAESDescifradaParaClienteBase64 = Base64.getEncoder().encodeToString(claveAESDescifradaBytes);
+
+        LoginResponse response = new LoginResponse();
+        response.setToken(token);
+        response.setNombre(guardado.getNombre());
+        response.setCorreo(guardado.getCorreo());
+        response.setIdUsuario(guardado.getIdUsuario());
+        response.setClaveCifDesPersonal(claveAESDescifradaParaClienteBase64);
+
+        return response;
     }
 
     public LoginResponse login(LoginRequest request) {

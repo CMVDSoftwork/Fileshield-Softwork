@@ -15,7 +15,7 @@ public class AuthController {
     private UsuarioService ServeUsuario;
 
     @PostMapping("/registro")
-    public ResponseEntity<UsuarioDTO> registrar(@RequestBody RegistroRequest request) {
+    public ResponseEntity<LoginResponse> registrar(@RequestBody RegistroRequest request) {
         return ResponseEntity.ok(ServeUsuario.registrar(request));
     }
 

@@ -10,10 +10,9 @@ import java.util.Optional;
 
 public interface UsuarioService {
     Optional<Usuario> obtenerPorCorreo(String correo);
-    UsuarioDTO registrar(RegistroRequest request);
+    LoginResponse registrar(RegistroRequest request);
     LoginResponse login(LoginRequest request);
     SecretKey recuperarClaveAES(Integer idUsuario, String contrasena);
     void cambiarContrasena(String correo, String contrasenaActual, String nuevaContrasena);
     void recuperarContrasenaSinToken(String correo, String contrasenaActual, String nuevaContrasena);
-
 }
